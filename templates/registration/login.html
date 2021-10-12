@@ -1,0 +1,17 @@
+{% extends 'auth_layout.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block auth %}
+<h1>Question Time</h1>
+<p class="lead text-muted">Share Your Knowledge!</p>
+<div class="container">
+  <form method="POST" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <!-- {% crispy form %} -->
+      <button type="submit" class="btn btn-sm btn-outline-primary">Login</button>
+  </form>
+  <p class="mt-2">Or <a href="{% url 'django_registration_register' %}">Create an Account</a></p>
+</div>
+{% endblock %}
