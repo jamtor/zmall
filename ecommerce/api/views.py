@@ -14,7 +14,8 @@ class ProductCategoriesViewSet(viewsets.ModelViewSet):
     queryset = ProductCategories.objects.all()
     lookup_field = "slug"
     serializer_class = ProductCategoriesSerializer
-    permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
+    # permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
+    permission_classes=[]
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -30,7 +31,7 @@ class ProductCategoriesViewSet(viewsets.ModelViewSet):
 
 class ProductAPIView(generics.ListAPIView):
     serializer_class = ProductSerializer
-    permission_classes = [IsAuthorOrReadOnly]
+    permission_classes = []
 
     def get_queryset(self):
         kwarg_id = self.kwargs.get("slug")
@@ -38,7 +39,7 @@ class ProductAPIView(generics.ListAPIView):
 
 class ProductDetailAPIView(generics.ListAPIView):
     serializer_class = ProductSerializer
-    permission_classes = [IsAuthorOrReadOnly]
+    permission_classes = []
 
     def get_queryset(self):
         kwarg_id = self.kwargs.get("slug")
@@ -48,6 +49,7 @@ class ProductDetailAPIView(generics.ListAPIView):
 class ImageCategoryAPIView(generics.RetrieveAPIView):
 
     renderer_classes = [JPEGRenderer]
+    permission_classes = []
 
     def get(self, request, *args, **kwargs):
         queryset = ProductCategories.objects.get(id=self.kwargs['id']).photo
@@ -57,6 +59,7 @@ class ImageCategoryAPIView(generics.RetrieveAPIView):
 class ImageProductAPIView(generics.RetrieveAPIView):
 
     renderer_classes = [JPEGRenderer]
+    permission_classes = []
 
     def get(self, request, *args, **kwargs):
         queryset = Product.objects.get(id=self.kwargs['id']).photo

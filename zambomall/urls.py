@@ -46,7 +46,6 @@ urlpatterns = [
     path('api/',
         include("ecommerce.api.urls")),
 
-
     re_path(r"^.*$", IndexTemplateView.as_view(), name="entry-point")
 ]
 if settings.DEBUG:
